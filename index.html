@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background-color: aliceblue;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: rgba(115, 190, 255, 0.356);
+            width: 500px;
+            height: 400px;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            background-color: rgba(153, 209, 255, 0.795);
+            width: 300px;
+            height: 200px;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="color"] {
+            display: block;
+            margin: auto;
+            background-color: transparent;
+            border-radius: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <div class="box">
+                <h1 id="title" style="color: rgba(27, 27, 27, 0.74);"></h1>
+            </div>
+            <h3 id="heading" style="text-align: center;
+            background-color: rgb(157, 224, 255);padding: 5px;color: rgba(27, 27, 27, 0.74);">8</h3>
+            <input type="color" name="color" id="color">
+        </div>
+    </div> 
+    <script type="text/javascript">
+        var title = document.getElementById("title");
+        var heading = document.getElementById("heading");
+        var color = document.getElementById("color");
+        class App {
+        constructor() {
+            this.getdate();
+            setInterval(()=> {
+                this.getdate();
+            } , 1*1000);
+            this.getmonth();
+            setInterval(()=> {
+            this.getmonth();
+            } , 86400);
+            this.setColor();
+        }
+        getdate() {
+            let date = new Date();
+            title.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            if (date.getHours() > -1 && date.getHours() <=9) {
+                title.innerText = "0" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            } else if(date.getMinutes() > -1 && date.getMinutes() <=9) {
+                title.innerText = date.getHours() + ":" + "0" + date.getMinutes() + ":" + date.getSeconds();
+            } else if (date.getSeconds() > -1 && date.getSeconds() <=9) {
+                title.innerText = date.getHours() + ":" + date.getMinutes() + ":" + "0" + date.getSeconds();
+            } else {
+                title.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            }
+        }
+        getmonth() {
+            let month = new Date();
+            heading.innerText = month.getUTCDate() + "-" + parseInt(month.getUTCMonth()+1) + "-" + month.getUTCFullYear();
+            if (month.getUTCDate() > 0 && month.getUTCDate() <=9) {
+                heading.innerText = "0" + month.getUTCDate() + "-" + parseInt(month.getUTCMonth()+1) + "-" + month.getUTCFullYear();
+            } else {
+                heading.innerText = month.getUTCDate() + "-" + parseInt(month.getUTCMonth()+1) + "-" + month.getUTCFullYear();
+            }
+        }
+        setColor() {
+            color.addEventListener("change" , function() {
+              let body = color.value;
+              let bdsv = document.body.style.backgroundColor = color.value;
+              localStorage.setItem("color" , body);
+              document.body.style.backgroundColor = localStorage.getItem("color");
+            });
+       }
+    }
+       onload = new App();
+        
+    </script>
+</body>
+</html>
